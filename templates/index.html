@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rutas Volantes</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="dot"></span>
+      <h1>Rutas Volantes</h1>
+    </div>
+    <div class="tools">
+      <label class="date">
+        Fecha
+        <input type="date" id="datePicker" />
+      </label>
+      <button id="btnAdd" class="primary">+ Repartidor</button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <aside id="sidebar">
+      <div class="sidebar-head">
+        <span id="repCount">0 repartidores</span>
+        <button id="btnAll" class="ghost">Ver todos</button>
+      </div>
+      <div id="repList" class="rep-list"></div>
+      <p class="hint">
+        Cada repartidor aparece aquí automáticamente la primera vez que su celular
+        envía una ubicación.
+      </p>
+    </aside>
+
+    <div id="map"></div>
+  </main>
+
+  <!-- Modal: agregar repartidor -->
+  <div class="modal" id="modalAdd" hidden>
+    <div class="modal-card">
+      <h2>Agregar repartidor</h2>
+      <p class="muted">Crea el usuario y luego configura la app OwnTracks en su celular.</p>
+      <label>Nombre completo
+        <input id="newName" type="text" placeholder="Ej. Carlos Pérez" autocomplete="off" />
+      </label>
+      <label>Teléfono (opcional)
+        <input id="newPhone" type="tel" placeholder="300 000 0000" autocomplete="off" />
+      </label>
+      <div class="modal-actions">
+        <button class="ghost" data-close>Cancelar</button>
+        <button class="primary" id="btnCreate">Crear</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: configuración del celular -->
+  <div class="modal" id="modalConfig" hidden>
+    <div class="modal-card wide">
+      <h2>Configurar el celular de <span id="cfgName"></span></h2>
+      <p class="muted">
+        Instala <strong>OwnTracks</strong> (Play Store / App Store) y usa exactamente estos datos:
+      </p>
+      <table class="cfg">
+        <tr><th>Modo</th><td><code>HTTP</code></td></tr>
+        <tr><th>Servidor / Host</th><td><code id="cfgHost"></code> <button class="copy" data-copy="cfgHost">copiar</button></td></tr>
+        <tr><th>Puerto</th><td><code>443</code></td></tr>
+        <tr><th>TLS / HTTPS</th><td><code>Activado</code></td></tr>
+        <tr><th>Usuario</th><td><code id="cfgUser"></code> <button class="copy" data-copy="cfgUser">copiar</button></td></tr>
+        <tr><th>Contraseña</th><td><code id="cfgPass"></code> <button class="copy" data-copy="cfgPass">copiar</button></td></tr>
+        <tr><th>Device ID</th><td><code>phone</code></td></tr>
+        <tr><th>Tracker ID</th><td><code id="cfgTid"></code></td></tr>
+      </table>
+      <p class="muted small">
+        Después de guardar, abre la app y pulsa <strong>▶</strong> para activar el seguimiento.
+        En Android concede permiso de ubicación <em>“Todo el tiempo”</em> y desactiva
+        la optimización de batería para OwnTracks.
+      </p>
+      <div class="modal-actions">
+        <button class="primary" data-close>Listo</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="/static/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: panel-volantes
+    runtime: docker
+    plan: free
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: PANEL_PASSWORD
+        sync: false
+      - key: TZ_OFFSET
+        value: "-5"
+      - key: ONLINE_SECONDS
+        value: "600"
